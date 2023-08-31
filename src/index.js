@@ -23,6 +23,7 @@ function onSubmitSearchForm(evt) {
     searchWord = searchQuery.value.trim().toLowerCase();
 
     if (searchWord === '') {
+        btnLoadMore.classList.add('is-hidden');
         Notify.info('Enter your request, please!');
         return;
     }
@@ -40,7 +41,10 @@ searchFoto(searchWord, page, per_page)
         if (data.totalHits > per_page) {
             btnLoadMore.classList.remove('is-hidden');
             // window.addEventListener('scroll', onLoadNewPage)
-        };
+        } 
+        if (data.totalHits <= per_page) {
+            Notify.info("We're sorry, but you've reached the end of search results.");
+        }
     })
     .catch(onError);
 
